@@ -9,7 +9,7 @@ import Doctor from './Doctor';
 
 import Values from './Values';
 
-import Img from '../Assets/14.png';
+import Img from '../Assets/About - hero.png';
 const About = () => {
   return (
     <div>

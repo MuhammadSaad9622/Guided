@@ -1,11 +1,11 @@
 import React from 'react';
-import Img1 from '../Assets/Capture1.png';
+import Img1 from '../Assets/home page- hero.png';
 function Sugic () {
 return (
 
 
 
-    <div className="min-h-screen bg-[#cdcec9] py-8" style={{ padding: '-4rem' }}>
+    <div className="min-h-screen bg-[#cdcec9] py-8" >
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 py-16">
           {/* Left Content Section */}

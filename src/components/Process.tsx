@@ -1,6 +1,6 @@
 import React from 'react';
 import { FolderUp, Calendar, CheckCircle } from 'lucide-react';
-import Img from '../Assets/Capture1.png';
+import Img from '../Assets/home page- hero.png';
 
 const Process = () => {
   return (
@@ -103,7 +103,7 @@ const Process = () => {
 
           {/* Pricing Section */}
 {/* Pricing Section */}
-<div className="bg-[#cdcec9] w-full rounded-lg px-8 py-12 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+<div className="bg-[#cdcec9] max-w-7xl mx-auto px-6 rounded-lg px-8 py-12 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
   <div>
     <h2 className="text-3xl font-bold mb-3">GUIDE PLANS STARTING AS<br />LOW AS $150</h2>
     <p className="mb-3">Ready to achieve unmatched precision in implant placement?</p>

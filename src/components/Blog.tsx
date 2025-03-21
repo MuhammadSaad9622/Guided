@@ -5,13 +5,13 @@ import Testimonials from './Testimonials';
 import FAQ from './faq';
 import { DentalLanding } from './DentalLanding';
 import Blogpage from './Blogpage';
-import Img from '../Assets/21.png';
+import Img from '../Assets/Blog - hero.png';
 
 const Blog = () => {
   return (
     <div>
       {/* Hero Section */}
-      <div className="relative bg-gray-100">
+      <div className="relative bg-[#cdcec9]">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2">
           <div className="flex flex-col justify-center p-8 md:p-16">
             <h1 className="text-4xl md:text-5xl font-bold text-[#0c1152]  mb-8 leading-tight">

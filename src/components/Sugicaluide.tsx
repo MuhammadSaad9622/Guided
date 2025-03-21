@@ -4,13 +4,13 @@ import Benefits from './Benefits';
 import Sugic from './Sugic';
 import Pricing from './Pricing';
 import { DentalLanding } from './DentalLanding';
-import Img from '../Assets/20.png';
+import Img from '../Assets/Surgical Guides -hero.png';
 
 function Sugicaluide() {
   return (
     <div className="relative min-h-screen">
       {/* Hero Section */}
-      <div className="bg-[#cdcec9] relative min-h-[50vh] flex items-center justify-between px-6 md:px-12 lg:px-20 max-w-7xl mx-auto">
+      <div className="bg-[#cdcec9] relative min-h-[50vh] flex items-center justify-between px-6 md:px-12 lg:px-20 max-w-9xl mx-auto">
         
         {/* Left Content Section */}
         <div className="w-1/2 space-y-6">

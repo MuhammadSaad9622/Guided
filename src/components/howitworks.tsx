@@ -3,14 +3,17 @@ import { FileText, Monitor, Stethoscope, LightbulbIcon, ChevronLeft, ChevronRigh
 import Navbar from './Navbar';
 import FAQ from './faq'; // Import the FAQ component
 import { DentalLanding } from './DentalLanding';
-import Img from '../Assets/11.png';
-import Img1 from '../Assets/19.png';
+import Img from '../Assets/How It Works - hero.png';
+import Img1 from '../Assets/1.png';
+import Img2 from '../Assets/2.png';
 
 export function HowItWorks() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
+    Img2,
     Img1,
-    Img,
+    
+   
    
   ];
 
@@ -27,13 +30,13 @@ export function HowItWorks() {
       {/* Navbar Component */}
      
 
-      <section className="relative bg-gray-200 py-24">
+      <section className="relative bg-[#cdcec9] py-24">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold text-[#0c1152]  mb-6">
-              DISCOVER OUR STEP-BY-STEP<br />
-              PROCESS FOR PRECISE AND<br />
-              EFFECTIVE TREATMENT
+          <div className="max-w-6xl">
+            <h1 className="text-4xl md:text-4xl font-bold text-[#0c1152]  mb-6">
+              DISCOVER OUR STEP-BY-<br />
+              STEP PROCESS FOR PRECISE <br />
+              AND EFFECTIVE TREATMENT
             </h1>
             <button className="bg-blue-900 text-white px-8 py-3 rounded-full font-semibold hover:bg-navy-800 transition-colors">
               SUBMIT YOUR CASE

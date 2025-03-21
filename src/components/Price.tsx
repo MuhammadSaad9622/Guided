@@ -5,7 +5,7 @@ import Testimonials from './Testimonials';
 import FAQ from './faq';
 import { DentalLanding } from './DentalLanding';
 import Whyweuse from './whyweuse';
-import Img from '../Assets/12.png';
+import Img from '../Assets/Pricing - hero.png';
 
 
 const Price = () => {

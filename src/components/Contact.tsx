@@ -1,7 +1,7 @@
 import React from 'react';
 import Form from './Form';
 import Footer from './Footer';
-import Img from '../Assets/15.png'
+import Img from '../Assets/Contact Us - hero.png'
 const Contact = () => {
   return (
     <div>

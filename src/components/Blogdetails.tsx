@@ -1,6 +1,6 @@
 import React from 'react';
 import { Star, Share } from 'lucide-react';
-import Img from '../Assets/13.png';
+import Img from '../Assets/Blog Individual - hero.png';
 import Recommended from './Recomendation';
 import { DentalLanding } from './DentalLanding';
 
