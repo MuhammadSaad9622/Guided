@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
+import { Menu, X } from 'lucide-react'; // Icons for mobile menu
 import Img from '../Assets/logo.png';
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <nav className="bg-[#f8f8f8] py-2 px-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -17,8 +20,8 @@ const Navbar = () => {
             />
           </Link>
         </div>
-        
-        {/* Navigation Links */}
+
+        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-8">
           <Link to="/howitworks" className="text-gray-700 hover:text-[#0c1152] font-medium">How It Works</Link>
           <Link to="/sugicaluide" className="text-gray-700 hover:text-[#0c1152] font-medium">Surgical Guides</Link>
@@ -28,8 +31,8 @@ const Navbar = () => {
           <Link to="/contact" className="text-gray-700 hover:text-[#0c1152] font-medium">Contact Us</Link>
         </div>
 
-        {/* Buttons */}
-        <div className="flex items-center space-x-4">
+        {/* Buttons (Desktop) */}
+        <div className="hidden md:flex items-center space-x-4">
           <button className="px-6 py-2 text-[#0c1152] border-2 border-navy-900 rounded-full font-semibold hover:bg-navy-50">
             BOOK A FREE CONSULT
           </button>
@@ -40,7 +43,30 @@ const Navbar = () => {
           </Link>
         </div>
 
+        {/* Mobile Menu Button */}
+        <div className="md:hidden">
+          <button onClick={() => setIsOpen(!isOpen)}>
+            {isOpen ? <X size={30} /> : <Menu size={30} />}
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Dropdown Menu */}
+      {isOpen && (
+        <div className="md:hidden flex flex-col bg-white py-4 px-6 space-y-4 shadow-md">
+          <Link to="/howitworks" className="text-gray-700 hover:text-[#0c1152]" onClick={() => setIsOpen(false)}>How It Works</Link>
+          <Link to="/sugicaluide" className="text-gray-700 hover:text-[#0c1152]" onClick={() => setIsOpen(false)}>Surgical Guides</Link>
+          <Link to="/price" className="text-gray-700 hover:text-[#0c1152]" onClick={() => setIsOpen(false)}>Pricing</Link>
+          <Link to="/blog" className="text-gray-700 hover:text-[#0c1152]" onClick={() => setIsOpen(false)}>Blog</Link>
+          <Link to="/about" className="text-gray-700 hover:text-[#0c1152]" onClick={() => setIsOpen(false)}>About</Link>
+          <Link to="/contact" className="text-gray-700 hover:text-[#0c1152]" onClick={() => setIsOpen(false)}>Contact Us</Link>
+          <Link to="/submitcase">
+            <button className="w-full py-2 bg-[#0c1152] text-white rounded-md font-semibold hover:bg-navy-800">
+              SUBMIT YOUR CASE
+            </button>
+          </Link>
+        </div>
+      )}
     </nav>
   );
 };
