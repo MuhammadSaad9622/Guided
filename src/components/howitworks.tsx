@@ -1,21 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FileText, Monitor, Stethoscope, LightbulbIcon, ChevronLeft, ChevronRight } from 'lucide-react';
 import Navbar from './Navbar';
-import FAQ from './faq'; // Import the FAQ component
+import FAQ from './faq';
 import { DentalLanding } from './DentalLanding';
-import Img from '../Assets/How It Works - hero.png';
+import ImgDesktop from '../Assets/How It Works - hero.png';
+import ImgMobile from '../Assets/How It Works.png'; // Mobile version of the image
 import Img1 from '../Assets/1.png';
 import Img2 from '../Assets/2.png';
 
 export function HowItWorks() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const slides = [
-    Img2,
-    Img1,
-    
-   
-   
-  ];
+  const [heroImage, setHeroImage] = useState(ImgDesktop);
+
+  const slides = [Img2, Img1];
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -25,11 +22,23 @@ export function HowItWorks() {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
+  useEffect(() => {
+    const updateImage = () => {
+      if (window.innerWidth < 768) {
+        setHeroImage(ImgMobile);
+      } else {
+        setHeroImage(ImgDesktop);
+      }
+    };
+
+    updateImage();
+    window.addEventListener('resize', updateImage);
+    
+    return () => window.removeEventListener('resize', updateImage);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Navbar Component */}
-     
-
       <section className="relative bg-[#cdcec9] py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl">
@@ -43,9 +52,9 @@ export function HowItWorks() {
             </button>
           </div>
           <img
-            src={Img}
+            src={heroImage}
             alt="Dental Tools"
-            className="absolute right-0 top-0 h-full w-1/2 object-cover opacity-90"
+            className="absolute right-0 top-0 h-full w-1/2 md:w-1/2 object-cover opacity-90"
           />
         </div>
       </section>

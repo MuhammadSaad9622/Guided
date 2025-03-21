@@ -1,7 +1,25 @@
-import React from 'react';
-import Img from '../Assets/home page- hero.png';
+import React, { useState, useEffect } from 'react';
+import DesktopImg from '../Assets/home page- hero.png';
+import MobileImg from '../Assets/Home Page.png';
 
 const Hero = () => {
+  const [heroImage, setHeroImage] = useState(DesktopImg);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setHeroImage(MobileImg);
+      } else {
+        setHeroImage(DesktopImg);
+      }
+    };
+
+    handleResize(); // Call on mount to set the initial image
+    window.addEventListener('resize', handleResize);
+    
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <div>
       {/* Hero Section */}
@@ -19,7 +37,7 @@ const Hero = () => {
           </div>
           <div className="relative h-[400px] md:h-full">
             <img 
-              src={Img}
+              src={heroImage}
               alt="Dental surgical guide"
               className="w-full h-full object-cover"
             />
