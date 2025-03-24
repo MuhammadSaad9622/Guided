@@ -3,7 +3,7 @@ import { FileText, Monitor, Stethoscope, LightbulbIcon, ChevronLeft, ChevronRigh
 import Navbar from './Navbar';
 import FAQ from './faq';
 import { DentalLanding } from './DentalLanding';
-import ImgDesktop from '../Assets/How It Works - hero.png';
+import ImgDesktop from '../Assets/How_It_Works-removebg-preview.png';
 import ImgMobile from '../Assets/How_It_Works-removebg-preview.png'; // Mobile version of the image
 import Img1 from '../Assets/1.png';
 import Img2 from '../Assets/2.png';

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown, Phone, Mail } from 'lucide-react';
-import Img from '../Assets/Captur9.png';
-import Img1 from '../Assets/Capture10.png';
+import Img from '../Assets/Captur9-removebg-preview.png';
+import Img1 from '../Assets/Capture10-removebg-preview.png';
 import logo from '../Assets/logo.png';
 
 

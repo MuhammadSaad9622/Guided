@@ -14,7 +14,7 @@ const Hero = () => {
       }
     };
 
-    handleResize(); // Call on mount to set the initial image
+    handleResize(); // Set initial image based on screen width
     window.addEventListener('resize', handleResize);
     
     return () => window.removeEventListener('resize', handleResize);
@@ -35,12 +35,11 @@ const Hero = () => {
               Submit Your Case
             </button>
           </div>
-          <div className="relative h-[800px] md:h-full" >
+          <div className="relative h-[500px] md:h-full">
             <img 
               src={heroImage}
               alt="Dental surgical guide"
               className="w-full h-full object-cover"
-              
             />
           </div>
         </div>
@@ -49,7 +48,7 @@ const Hero = () => {
       {/* Expert-Guided Section */}
       <div className="bg-[#f9f9f9] py-16 text-center">
         <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#0c1152]  mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#0c1152] mb-4">
             EXPERT-GUIDED PRECISION FOR<br />
             EVERY IMPLANT SURGERY
           </h2>

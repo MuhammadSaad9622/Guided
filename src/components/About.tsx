@@ -9,7 +9,7 @@ import Doctor from './Doctor';
 import Values from './Values';
 
 import ImgDesktop from '../Assets/About - hero.png';
-import ImgMobile from '../Assets/About.png'; // Add mobile version image
+import ImgMobile from '../Assets/About - hero.png'; // Mobile version image
 
 const About = () => {
   const [heroImage, setHeroImage] = useState(ImgDesktop);
@@ -41,7 +41,7 @@ const About = () => {
               GET STARTED
             </button>
           </div>
-          <div className="relative h-[400px] md:h-full">
+          <div className="relative h-[300px] md:h-full">
             <img 
               src={heroImage}
               alt="About Us Hero"

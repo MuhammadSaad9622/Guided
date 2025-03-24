@@ -3,7 +3,7 @@ import Form from './Form';
 import Footer from './Footer';
 
 import ImgDesktop from '../Assets/Contact Us - hero.png';
-import ImgMobile from '../Assets/Contact.png'; // Mobile image
+import ImgMobile from '../Assets/Contact Us - hero.png'; // Mobile image
 
 const Contact = () => {
   const [heroImage, setHeroImage] = useState(ImgDesktop);
@@ -35,7 +35,7 @@ const Contact = () => {
               Submit Your Case
             </button>
           </div>
-          <div className="relative h-[400px] md:h-full">
+          <div className="relative h-[300px] md:h-full">
             <img 
               src={heroImage}
               alt="Contact Us Hero"
@@ -45,7 +45,13 @@ const Contact = () => {
         </div>
       </div>
 
-      <Form />
+      {/* Form Section */}
+      <div className="bg-white py-16">
+        <div className="max-w-4xl mx-auto px-4">
+          <Form />
+        </div>
+      </div>
+
       <Footer />
     </div>
   );
