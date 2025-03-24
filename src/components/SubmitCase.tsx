@@ -4,6 +4,8 @@ import { ChevronDown, Upload } from 'lucide-react';
 const SubmitCase = () => {
   const [surgicalGuideType, setSurgicalGuideType] = useState('');
   const [showGuideTypes, setShowGuideTypes] = useState(false);
+  const [droppedFile, setDroppedFile] = useState(null);
+  const [dragActive, setDragActive] = useState(false);
 
   const guideTypes = [
     'Edentulous Surgical Guide',
@@ -11,12 +13,48 @@ const SubmitCase = () => {
     'Pilot Guide Only'
   ];
 
-  const months = Array.from({length: 12}, (_, i) => {
+  const months = Array.from({ length: 12 }, (_, i) => {
     return new Date(0, i).toLocaleString('default', { month: 'long' });
   });
 
-  const days = Array.from({length: 31}, (_, i) => i + 1);
-  const years = Array.from({length: 10}, (_, i) => new Date().getFullYear() + i);
+  const days = Array.from({ length: 31 }, (_, i) => i + 1);
+  const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() + i);
+
+  // Drag and Drop Handlers
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!dragActive) {
+      setDragActive(true);
+    }
+  };
+
+  const handleDragEnter = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      setDroppedFile(e.dataTransfer.files[0]);
+    }
+  };
+
+  const handleFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setDroppedFile(e.target.files[0]);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white py-12">
@@ -119,7 +157,7 @@ const SubmitCase = () => {
 
           {/* General Planning Information */}
           <div className="mt-12">
-            <h2 className="text-xl font-bold text-[#0c1152]  mb-8 text-center">
+            <h2 className="text-xl font-bold text-[#0c1152] mb-8 text-center">
               GENERAL PLANNING INFORMATION:
             </h2>
             
@@ -166,7 +204,7 @@ const SubmitCase = () => {
 
           {/* Implant System Selection */}
           <div className="mt-12">
-            <h2 className="text-xl font-bold text-[#0c1152]  mb-8 text-center">
+            <h2 className="text-xl font-bold text-[#0c1152] mb-8 text-center">
               SELECT IMPLANT SYSTEM AND GUIDE SURGICAL KIT:
             </h2>
             
@@ -242,13 +280,39 @@ const SubmitCase = () => {
             </div>
 
             <div className="mt-8">
-              <div className="bg-gray-100 rounded-lg p-8 text-center">
-                <Upload className="w-8 h-8 mx-auto mb-2 text-[#0c1152] " />
-                <p className="text-[#0c1152]  font-medium mb-1">Click to Upload or Drag and Drop</p>
-                <p className="text-[#0c1152]  font-bold mb-4">Attach CBCT/DICOM File</p>
+              <div
+                className={`bg-gray-100 rounded-lg p-8 text-center cursor-pointer ${
+                  dragActive ? 'border-2 border-blue-500' : ''
+                }`}
+                onDragOver={handleDragOver}
+                onDragEnter={handleDragEnter}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+                onClick={() => document.getElementById('fileInput').click()}
+              >
+                <Upload className="w-8 h-8 mx-auto mb-2 text-[#0c1152]" />
+                <p className="text-[#0c1152] font-medium mb-1">
+                  Click to Upload or Drag and Drop
+                </p>
+                <p className="text-[#0c1152] font-bold mb-4">
+                  Attach CBCT/DICOM File
+                </p>
+                {droppedFile && (
+                  <div className="mt-2 text-sm text-gray-700">
+                    File: {droppedFile.name}
+                  </div>
+                )}
+                <input
+                  type="file"
+                  id="fileInput"
+                  className="hidden"
+                  onChange={handleFileChange}
+                />
               </div>
               <div className="mt-4 text-center">
-                <p className="text-sm text-gray-600 mb-2">or share a link to CBCT/DICOM File</p>
+                <p className="text-sm text-gray-600 mb-2">
+                  or share a link to CBCT/DICOM File
+                </p>
                 <input
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
@@ -259,7 +323,7 @@ const SubmitCase = () => {
 
           {/* Doctor's Information */}
           <div className="mt-12">
-            <h2 className="text-xl font-bold text-[#0c1152]  mb-8 text-center">
+            <h2 className="text-xl font-bold text-[#0c1152] mb-8 text-center">
               DOCTOR'S INFORMATION
             </h2>
             
@@ -311,13 +375,27 @@ const SubmitCase = () => {
                 Submitting this data is subject to the terms and conditions of the Master Surgical Guide Agreement, which are incorporated herein by this reference. The above referenced Placing Dentist and Restoring Dentist (collectively "Dentist") represents, declares and agrees that the Dentist:
               </p>
               <ol className="list-decimal pl-5 space-y-2">
-                <li>Is a licensed dental professional qualified to perform the dental implant procedure documented in the above case plan;</li>
-                <li>Has or will review the case plan and all relevant data related to the case plan and approve the same;</li>
-                <li>That the file and all relevant data provided to Guided Excellence, LLC for purposes of constructing the surgical guide is accurate and approved</li>
-                <li>Is the Dentist;</li>
-                <li>Agree that Guided Excellence, LLC is not responsible for improperly fitting surgical guides when the scan appliance used was fabricated by a third party or models the Scan Appliance was constructed on are not available;</li>
-                <li>Assumes full responsibility for both the plan and resulting surgical guide(s); and</li>
-                <li>That this data will be accompanied by our Work Authorization which is made subject to the terms of the Master Surgical Guide Agreement which includes, but is not limited to, disclaimers on all warranties and a limitation of Guided Excellence, LLC liability.</li>
+                <li>
+                  Is a licensed dental professional qualified to perform the dental implant procedure documented in the above case plan;
+                </li>
+                <li>
+                  Has or will review the case plan and all relevant data related to the case plan and approve the same;
+                </li>
+                <li>
+                  That the file and all relevant data provided to Guided Excellence, LLC for purposes of constructing the surgical guide is accurate and approved;
+                </li>
+                <li>
+                  Is the Dentist;
+                </li>
+                <li>
+                  Agree that Guided Excellence, LLC is not responsible for improperly fitting surgical guides when the scan appliance used was fabricated by a third party or models the Scan Appliance was constructed on are not available;
+                </li>
+                <li>
+                  Assumes full responsibility for both the plan and resulting surgical guide(s); and
+                </li>
+                <li>
+                  That this data will be accompanied by our Work Authorization which is made subject to the terms of the Master Surgical Guide Agreement which includes, but is not limited to, disclaimers on all warranties and a limitation of Guided Excellence, LLC liability.
+                </li>
               </ol>
 
               <p className="mt-4">
@@ -347,7 +425,7 @@ const SubmitCase = () => {
               </div>
 
               <div className="mt-8">
-                <button className="w-full bg-[#0c1152]  text-white py-3 rounded-lg font-semibold hover:bg-navy-800 transition-colors">
+                <button className="w-full bg-[#0c1152] text-white py-3 rounded-lg font-semibold hover:bg-navy-800 transition-colors">
                   SUBMIT
                 </button>
               </div>
@@ -355,13 +433,7 @@ const SubmitCase = () => {
           </div>
 
           {/* Implant Image */}
-          <div className="absolute right-0 top-1/2 -translate-y-1/2">
-            <img
-              src="https://images.unsplash.com/photo-1628177142898-92d1c4b82b3d?auto=format&fit=crop&q=80"
-              alt="Dental Implant"
-              className="w-72 h-auto opacity-20"
-            />
-          </div>
+         
         </div>
       </div>
     </div>
