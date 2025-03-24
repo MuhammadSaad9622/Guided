@@ -33,13 +33,18 @@ return (
           </div>
 
           {/* Right Image Section */}
-          <div className="w-full md:w-1/2">
-            <img 
-              src={Img1}
-              alt="Dental surgical guide"
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
-          </div>
+          <div 
+  className="md:w-2/9 flex justify-center md:justify-end ml-auto pr-10" 
+  style={{ width: "50%", marginRight: "-80px", paddingTop:"-200px", height:"50%" }}
+>
+  <img 
+    src={Img1} 
+    alt="Dental Technology" 
+    className="object-contain" 
+    style={{ height: "90vh", width: "100%", maxWidth: "600px" }} 
+  />
+</div>
+
         </div>
       </div>
     </div>

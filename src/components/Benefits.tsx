@@ -49,7 +49,7 @@ function Benefits() {
             <div key={index} className="flex gap-6 items-start">
               <div className="flex-shrink-0">
                 <div className="w-12 h-12 rounded-full bg-[#0c1152] /10 flex items-center justify-center">
-                  <benefit.icon className="w-6 h-6 text-[#0c1152] " />
+                  <benefit.icon className="w-6 h-6 text-[#FFFF] " />
                 </div>
               </div>
               <div>

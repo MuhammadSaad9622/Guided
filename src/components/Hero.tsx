@@ -35,11 +35,12 @@ const Hero = () => {
               Submit Your Case
             </button>
           </div>
-          <div className="relative h-[400px] md:h-full">
+          <div className="relative h-[800px] md:h-full" >
             <img 
               src={heroImage}
               alt="Dental surgical guide"
               className="w-full h-full object-cover"
+              
             />
           </div>
         </div>

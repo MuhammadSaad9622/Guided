@@ -43,9 +43,19 @@ function SurgicalGuideComponent() {
         </div>
 
         {/* Right Image Section */}
-        <div className="md:w-1/2 flex justify-center md:justify-end">
-          <img src={heroImage} alt="Dental Technology" className="h-[50vh] md:h-[60vh] object-contain" />
-        </div>
+        <div 
+  className="md:w-2/5 flex justify-center md:justify-end ml-auto pr-10" 
+  style={{ width: "50%", marginRight: "-130px",  paddingTop:"-200px"}}
+>
+  <img 
+    src={heroImage} 
+    alt="Dental Technology" 
+    className="object-contain" 
+    style={{ height: "70vh", width: "100%", maxWidth: "600px"  }} 
+  />
+</div>
+
+
       </div>
 
       {/* Surgical Guide Section */}
