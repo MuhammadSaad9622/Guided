@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChevronDown, Phone, Mail } from 'lucide-react';
 import Img from '../Assets/Captur9-removebg-preview.png';
 import Img1 from '../Assets/Capture10-removebg-preview.png';
 import logo from '../Assets/logo.png';
-
 
 function FAQItem({ question, children }: { question: string; children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,15 +29,22 @@ function FAQItem({ question, children }: { question: string; children: React.Rea
 }
 
 export function DentalLanding() {
+  const navigate = useNavigate();
+
+  const handleSubmitCase = () => {
+    navigate('/SubmitCase'); // Navigate to submit case route
+  };
+
+  const handleBookCall = () => {
+    navigate('/book-call'); // Navigate to book call route
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* FAQ Section */}
-      
-
       {/* Main CTA Section */}
-      <section className="relative bg-[#cdcec9] py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#0c1152]  mb-6">
+      <section className="relative bg-[#cdcec9] py-16 overflow-hidden">
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#0c1152] mb-6">
             START YOUR NEXT IMPLANT CASE<br />WITH CONFIDENCE
           </h2>
           
@@ -47,26 +54,32 @@ export function DentalLanding() {
           </p>
 
           <div className="space-y-4 md:space-y-0 md:space-x-4">
-            <button className="bg-blue-900 text-white px-8 py-3 rounded-full font-semibold hover:bg-navy-800 transition-colors">
+            <button 
+              onClick={handleSubmitCase}
+              className="bg-blue-900 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-800 transition-colors"
+            >
               SUBMIT A CASE
             </button>
-            <button className="bg-white text-[#0c1152]  px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors">
+            <button 
+              onClick={handleBookCall}
+              className="bg-white text-[#0c1152] px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition-colors"
+            >
               BOOK A CALL
             </button>
           </div>
-
-          {/* Decorative Images */}
-          <img
-            src={Img1}
-            alt="Dental Implant Left"
-            className="absolute left-0 bottom-0 w-48 opacity-50 md:opacity-100"
-          />
-          <img
-            src={Img}
-            alt="Dental Implant Right"
-            className="absolute right-0 bottom-0 w-48 opacity-50 md:opacity-100"
-          />
         </div>
+
+        {/* Decorative Images - Modified for mobile */}
+        <img
+          src={Img1}
+          alt="Dental Implant Left"
+          className="absolute left-0 bottom-0 w-24 md:w-48 opacity-50 md:opacity-100"
+        />
+        <img
+          src={Img}
+          alt="Dental Implant Right"
+          className="absolute right-0 bottom-0 w-24 md:w-48 opacity-50 md:opacity-100"
+        />
       </section>
 
       {/* Contact Form Section */}
@@ -76,10 +89,8 @@ export function DentalLanding() {
             <img
               src={logo}
               alt="Guided Logo"
-              className="w-12 h-12"
-              style={{ width: "120px", height: "100px" }} 
+              className="w-30 h-25" 
             />
-            
           </div>
           
           <nav className="space-y-2">
@@ -113,7 +124,7 @@ export function DentalLanding() {
             rows={4}
             className="w-full p-3 border rounded-lg"
           />
-          <button className="w-full bg-[#0c1152]  text-white py-3 rounded-lg font-semibold hover:bg-navy-800 transition-colors">
+          <button className="w-full bg-[#0c1152] text-white py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors">
             SUBMIT
           </button>
         </form>
@@ -128,7 +139,10 @@ export function DentalLanding() {
               <Mail className="w-5 h-5 mr-2" />
               info@guided4excellence.com
             </a>
-            <button className="w-full bg-white text-[#0c1152]  py-3 rounded-lg font-semibold border border-navy-900 hover:bg-gray-50 transition-colors">
+            <button 
+              onClick={handleBookCall}
+              className="w-full bg-white text-[#0c1152] py-3 rounded-lg font-semibold border border-blue-900 hover:bg-gray-50 transition-colors"
+            >
               BOOK A CALL
             </button>
           </div>

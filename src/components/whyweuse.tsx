@@ -3,6 +3,9 @@ import React from 'react';
 function Whyweuse () {
     return (
         <div>
+          <br></br>
+          <br></br>
+          <br></br>
 
         <h2 className="text-3xl font-bold text-center text-[#0c1152]  mb-12">
           WHY USE A SURGICAL GUIDE?

@@ -1,8 +1,15 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FolderUp, Calendar, CheckCircle } from 'lucide-react';
-import Img from '../Assets/home page- hero.png';
+
 
 const Process = () => {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/SubmitCase'); // Navigate to submit case route
+  };
+
   return (
     <div className="bg-blue-900 text-white">
       {/* Process Section */}
@@ -38,14 +45,17 @@ const Process = () => {
           </div>
         </div>
         <div className="flex justify-center">
-          <button className="px-8 py-3 bg-white text-[#0c1152]  rounded-full font-semibold hover:bg-gray-100">
+          <button 
+            onClick={handleGetStarted}
+            className="px-8 py-3 bg-white text-[#0c1152] rounded-full font-semibold hover:bg-gray-100"
+          >
             GET STARTED
           </button>
         </div>
       </div>
 
       {/* Why Choose Section */}
-      <div className="bg-white text-[#0c1152]  py-16">
+      <div className="bg-white text-[#0c1152] py-16">
         <div className="max-w-7xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-12">
             WHY CHOOSE GUIDED EXCELLENCE?
@@ -100,33 +110,6 @@ const Process = () => {
               </div>
             </div>
           </div>
-
-          {/* Pricing Section */}
-{/* Pricing Section */}
-<div className="bg-[#cdcec9] max-w-7xl mx-auto px-6 rounded-lg px-8 py-12 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-  <div>
-    <h2 className="text-3xl font-bold mb-3">GUIDE PLANS STARTING AS<br />LOW AS $150</h2>
-    <p className="mb-3">Ready to achieve unmatched precision in implant placement?</p>
-    <p className="text-[#0c1152]  font-semibold mb-4">Experience the difference of expert-guided surgical guides.</p>
-    <div className="flex gap-3">
-      <button className="px-5 py-2 bg-[#0c1152]  text-white rounded-full font-semibold hover:bg-navy-800">
-        SUBMIT A CASE
-      </button>
-      <button className="px-5 py-2 border-2 border-navy-900 text-[#0c1152]  rounded-full font-semibold hover:bg-navy-50">
-        CHECK PRICING
-      </button>
-    </div>
-  </div>
-  <div className="relative h-[200px] md:h-[250px]">
-    <img 
-      src={Img}
-      alt="Dental surgical guide"
-      className="w-full h-full object-cover rounded-lg"
-    />
-  </div>
-</div>
-
-
         </div>
       </div>
     </div>

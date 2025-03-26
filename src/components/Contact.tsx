@@ -1,19 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Form from './Form';
 import Footer from './Footer';
-
 import ImgDesktop from '../Assets/Contact Us - hero.png';
-import ImgMobile from '../Assets/Contact Us - hero.png'; // Mobile image
+import ImgMobile from '../Assets/Contact Us - hero.png';
 
 const Contact = () => {
   const [heroImage, setHeroImage] = useState(ImgDesktop);
+  const navigate = useNavigate();
+
+  const handleSubmitCase = () => {
+    navigate('/SubmitCase');
+  };
 
   useEffect(() => {
     const updateImage = () => {
       setHeroImage(window.innerWidth < 768 ? ImgMobile : ImgDesktop);
     };
 
-    updateImage(); // Set initial image based on screen size
+    updateImage();
     window.addEventListener('resize', updateImage);
 
     return () => {
@@ -31,7 +36,10 @@ const Contact = () => {
               <span className="block">Contact Us –</span>
               <span className="block">We're Here to Help</span>
             </h1>
-            <button className="w-fit px-8 py-3 bg-[#0c1152] text-white rounded-full font-semibold hover:bg-navy-800 uppercase">
+            <button 
+              onClick={handleSubmitCase}
+              className="w-fit px-8 py-3 bg-[#0c1152] text-white rounded-full font-semibold hover:bg-navy-800 uppercase"
+            >
               Submit Your Case
             </button>
           </div>

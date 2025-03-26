@@ -1,7 +1,7 @@
-import React from "react";
+
+import { useEffect, useLayoutEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import BlogDetailPage from "./Blogdetails";
 
 // Sample blog data
 const blogPosts = Array(9).fill({
@@ -15,6 +15,19 @@ const blogPosts = Array(9).fill({
 
 function Blogpage() {
   const navigate = useNavigate();
+
+  // Scroll to top when component mounts
+
+
+    // Try useLayoutEffect first
+    useLayoutEffect(() => {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }, []);
+  
+    // Fallback to useEffect if needed
+    useEffect(() => {
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 md:px-8">

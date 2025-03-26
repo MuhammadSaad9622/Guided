@@ -17,6 +17,7 @@ import BlogDetailPage from './components/Blogdetails';                      // I
 import About from './components/About'; 
 import Contact from './components/Contact';
 import SubmitCase from './components/SubmitCase';
+import HeroPrice from './components/heroprice';
 function App() {
   return (
     <Router>
@@ -30,8 +31,10 @@ function App() {
               <>
                 <Hero />
                 <Process />
+                <HeroPrice/>
                 <Technology />
                 <Testimonials />
+               
                 <Whyweuse/>
                 <Doctor />
                 <FAQ />

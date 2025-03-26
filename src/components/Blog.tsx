@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import Pricing from './Pricing';
-import Affordable from './Affordable';
-import Testimonials from './Testimonials';
-import FAQ from './faq';
+import { useNavigate } from 'react-router-dom';
 import { DentalLanding } from './DentalLanding';
 import Blogpage from './Blogpage';
 import ImgDesktop from '../Assets/Blog - hero.png';
-import ImgMobile from '../Assets/Blog.png'; // Add mobile version image
+import ImgMobile from '../Assets/Blog.png';
 
 const Blog = () => {
   const [heroImage, setHeroImage] = useState(ImgDesktop);
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    navigate('/SubmitCase'); // Or '/get-started' depending on your route
+  };
 
   useEffect(() => {
     const updateImage = () => {
       setHeroImage(window.innerWidth < 768 ? ImgMobile : ImgDesktop);
     };
 
-    updateImage(); // Set initial image based on screen size
+    updateImage();
     window.addEventListener('resize', updateImage);
 
     return () => {
@@ -35,7 +37,10 @@ const Blog = () => {
               <span className="block">Precision: The Guided</span>
               <span className="block">Excellence Blog</span> 
             </h1>
-            <button className="w-fit px-8 py-3 bg-[#0c1152] text-white rounded-full font-semibold hover:bg-navy-800 uppercase">
+            <button 
+              onClick={handleGetStarted}
+              className="w-fit px-8 py-3 bg-[#0c1152] text-white rounded-full font-semibold hover:bg-navy-800 uppercase"
+            >
               GET STARTED
             </button>
           </div>
@@ -50,7 +55,6 @@ const Blog = () => {
       </div>
 
       <Blogpage />
-
       <DentalLanding />
     </div>
   );

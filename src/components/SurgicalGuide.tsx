@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
+import Img from '../Assets/1.png';
+import Img1 from '../Assets/2.png';
+import Img2 from '../Assets/3.png';
+
 const images = [
   {
-    url: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80",
+    url: Img,  // Removed the curly braces - this was the main issue
     alt: "Dental implant guide markers"
   },
   {
-    url: "https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&q=80",
+    url: Img1,
     alt: "Dental X-ray scan"
   },
   {
-    url: "https://images.unsplash.com/photo-1609840123080-3c83c2c1a8c7?auto=format&fit=crop&q=80",
+    url: Img2,
     alt: "Dental implant guide model"
   }
 ];
@@ -38,10 +42,10 @@ function SurgicalGuide() {
 
         {/* Title Section */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-[#0c1152]  mb-4">
+          <h2 className="text-3xl font-bold text-[#0c1152] mb-4">
             WHAT IS A SURGICAL GUIDE?
           </h2>
-          <p className="text-[#0c1152]  font-medium tracking-wide">
+          <p className="text-[#0c1152] font-medium tracking-wide">
             GUIDING IMPLANT PLACEMENT WITH ADVANCED TECHNOLOGY
           </p>
         </div>
@@ -61,9 +65,9 @@ function SurgicalGuide() {
               {images.map((image, index) => (
                 <div key={index} className="w-full flex-shrink-0">
                   <img
-                    src={image.url}
+                    src={image.url}  // Fixed the src attribute
                     alt={image.alt}
-                    className="w-full h-full object-cover rounded-lg"
+                    className="w-full h-full object-contain rounded-lg"  // Changed to object-contain for better image display
                   />
                 </div>
               ))}
@@ -75,13 +79,13 @@ function SurgicalGuide() {
             onClick={prevSlide}
             className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition-colors"
           >
-            <ChevronLeft className="w-6 h-6 text-[#0c1152] " />
+            <ChevronLeft className="w-6 h-6 text-[#0c1152]" />
           </button>
           <button
             onClick={nextSlide}
             className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition-colors"
           >
-            <ChevronRight className="w-6 h-6 text-[#0c1152] " />
+            <ChevronRight className="w-6 h-6 text-[#0c1152]" />
           </button>
 
           {/* Dots */}
@@ -91,7 +95,7 @@ function SurgicalGuide() {
                 key={index}
                 onClick={() => setCurrentSlide(index)}
                 className={`w-2 h-2 rounded-full transition-colors ${
-                  currentSlide === index ? 'bg-[#0c1152] ' : 'bg-gray-300'
+                  currentSlide === index ? 'bg-[#0c1152]' : 'bg-gray-300'
                 }`}
               />
             ))}

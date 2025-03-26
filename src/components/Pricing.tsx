@@ -10,26 +10,26 @@ const pricingData = [
   { units: "EDENTULOUS GUIDES", planning: 350, printing: 350, total: 700 }
 ];
 
-function  Pricing() {
+function Pricing() {
   return (
     <div className="bg-white py-16 px-4 md:px-8">
       <div className="max-w-4xl mx-auto">
         {/* Title */}
-        <h2 className="text-center text-3xl font-bold text-[#0c1152]  mb-12">
+        <h2 className="text-center text-3xl font-bold text-[#0c1152] mb-12">
           TRANSPARENT PRICING FOR PRECISION-GUIDED<br />
           DENTAL SOLUTIONS
         </h2>
 
         {/* Pricing Table */}
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
+          <table className="w-full border-collapse border border-gray-300">
             {/* Table Header */}
             <thead>
               <tr className="bg-blue-900 text-white">
-                <th className="py-4 px-6 text-left font-medium">NUMBER OF UNITS</th>
-                <th className="py-4 px-6 text-left font-medium">PLANNING AND CONSULTION FEE</th>
-                <th className="py-4 px-6 text-left font-medium">PRINTING FEE</th>
-                <th className="py-4 px-6 text-left font-medium">TOTAL COST</th>
+                <th className="py-4 px-6 text-left font-medium border border-gray-300">NUMBER OF UNITS</th>
+                <th className="py-4 px-6 text-left font-medium border border-gray-300">PLANNING AND CONSULTION FEE</th>
+                <th className="py-4 px-6 text-left font-medium border border-gray-300">PRINTING FEE</th>
+                <th className="py-4 px-6 text-left font-medium border border-gray-300">TOTAL COST</th>
               </tr>
             </thead>
             {/* Table Body */}
@@ -38,14 +38,14 @@ function  Pricing() {
                 <tr 
                   key={index}
                   className={`
-                    border-b border-gray-200
-                    ${typeof row.units === 'string' ? 'bg-blue-50' : 'hover:bg-gray-50'}
+                    border-b border-gray-300
+                    ${typeof row.units === 'string' ? '' : 'hover:bg-gray-50'}
                   `}
                 >
-                  <td className="py-4 px-6">{row.units}</td>
-                  <td className="py-4 px-6">${row.planning}</td>
-                  <td className="py-4 px-6">${row.printing}</td>
-                  <td className="py-4 px-6">${row.total}</td>
+                  <td className="py-4 px-6 border border-gray-300">{row.units}</td>
+                  <td className="py-4 px-6 border border-gray-300">${row.planning}</td>
+                  <td className="py-4 px-6 border border-gray-300">${row.printing}</td>
+                  <td className="py-4 px-6 border border-gray-300">${row.total}</td>
                 </tr>
               ))}
             </tbody>
@@ -54,7 +54,7 @@ function  Pricing() {
 
         {/* CTA Button */}
         <div className="text-center mt-8">
-          <button className="bg-blue-900 text-white px-8 py-3 rounded-md text-sm font-medium tracking-wide hover:bg-navy-800 transition-colors">
+          <button className="bg-blue-900 text-white px-8 py-3 rounded-md text-sm font-medium tracking-wide hover:bg-blue-800 transition-colors">
             GET STARTED
           </button>
         </div>
