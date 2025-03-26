@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import routing components
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ScrollToTop from './components/ScrollToTop'; // Import ScrollToTop
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Process from './components/Process';
@@ -13,18 +14,19 @@ import Sugicaluide from './components/Sugicaluide';
 import Price from './components/Price';  
 import Whyweuse from './components/whyweuse';   
 import Blog from './components/Blog';  
-import BlogDetailPage from './components/Blogdetails';                      // Import the HowItWorks component
+import BlogDetailPage from './components/Blogdetails';  
 import About from './components/About'; 
 import Contact from './components/Contact';
 import SubmitCase from './components/SubmitCase';
 import HeroPrice from './components/heroprice';
+
 function App() {
   return (
     <Router>
+      <ScrollToTop /> {/* Ensures the page scrolls to top on navigation */}
       <div className="min-h-screen bg-white">
         <Navbar />
         <Routes>
-          {/* Home Route */}
           <Route
             path="/"
             element={
@@ -34,7 +36,6 @@ function App() {
                 <HeroPrice/>
                 <Technology />
                 <Testimonials />
-               
                 <Whyweuse/>
                 <Doctor />
                 <FAQ />
@@ -42,7 +43,6 @@ function App() {
               </>
             }
           />
-          {/* How It Works Route */}
           <Route path="/howitworks" element={<HowItWorks />} />
           <Route path="/Sugicaluide" element={<Sugicaluide />} />
           <Route path="/Price" element={<Price />} />
