@@ -7,7 +7,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="bg-[#f8f8f8] py-2 px-4">
+    <nav className="bg-[#f8f8f8] py-2 px-4 pb-4"> {/* Added padding below */}
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         
         {/* Logo */}
@@ -16,7 +16,7 @@ const Navbar = () => {
             <img 
               src={Img} 
               alt="Dental surgical guide" 
-              style={{ width: "130px", height: "100px", cursor: "pointer" }} 
+              style={{ width: "130px", height: "100px", cursor: "pointer" ,}} 
             />
           </Link>
         </div>
@@ -33,9 +33,11 @@ const Navbar = () => {
 
         {/* Buttons (Desktop) */}
         <div className="hidden md:flex items-center space-x-4">
-          <button className="px-6 py-2 text-[#0c1152] border-2 border-navy-900 rounded-full font-semibold hover:bg-navy-50">
-            BOOK A FREE CONSULT
-          </button>
+          <Link to="https://calendly.com/guided4excellence/30min">
+            <button className="px-6 py-2 text-[#0c1152] border-2 border-navy-900 rounded-full font-semibold hover:bg-navy-50">
+              BOOK A FREE CONSULT
+            </button>
+          </Link>
           <Link to="/submitcase">
             <button className="px-6 py-2 bg-[#0c1152] text-white rounded-full font-semibold hover:bg-navy-800">
               SUBMIT YOUR CASE
@@ -63,6 +65,12 @@ const Navbar = () => {
           <Link to="/submitcase">
             <button className="w-full py-2 bg-[#0c1152] text-white rounded-md font-semibold hover:bg-navy-800">
               SUBMIT YOUR CASE
+            </button>
+          </Link>
+
+          <Link to="https://calendly.com/guided4excellence/30min">
+            <button className="w-full py-2 bg-[#0c1152] text-white rounded-md font-semibold hover:bg-navy-800">
+              BOOK A FREE CONSULT
             </button>
           </Link>
         </div>

@@ -122,7 +122,7 @@ const Technology = () => {
         }
         
         .animate-infinite-scroll {
-          animation: infinite-scroll 100s linear infinite;
+          animation: infinite-scroll 80s linear infinite;
           display: flex;
           width: max-content;
         }

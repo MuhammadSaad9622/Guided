@@ -1,5 +1,6 @@
 import React from 'react';
 import { Phone, Mail } from 'lucide-react';
+import { Link } from "react-router-dom";
 
 function Form() {
   return (
@@ -8,16 +9,22 @@ function Form() {
         {/* Contact Info */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-8 mb-12">
           <div className="flex items-center gap-2">
-            <Phone className="w-9 h-5 text-[#0c1152]" />
-            <a href="tel:626.606.6504" className="text-[#0c1152] hover:text-navy-800">
-              626.606.6504
-            </a>
+            <Phone className="w-5 h-5 text-[#0c1152]" />
+            <Link  to="tel:+16266066504" 
+              
+              className="text-[#0c1152] hover:text-navy-800 hover:underline"
+            >
+              (626) 606-6504
+            </Link>
           </div>
           <div className="flex items-center gap-2">
             <Mail className="w-5 h-5 text-[#0c1152]" />
-            <a href="mailto:dbaghoomian@guided4excellence.com" className="text-[#0c1152] hover:text-navy-800">
+            <Link to="mailto:dbaghoomian@guided4excellence.com" 
+              
+              className="text-[#0c1152] hover:text-navy-800 hover:underline"
+            >
               dbaghoomian@guided4excellence.com
-            </a>
+            </Link>
           </div>
         </div>
 

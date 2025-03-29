@@ -41,7 +41,7 @@ export function HowItWorks() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <section className={`relative bg-[#cdcec9] ${isMobile ? 'py-16' : 'py-32 h-[600px]'}`}>
+      <section className={`relative bg-[#cdcec9] ${isMobile ? 'py-16 pb-1' : 'py-32 h-[600px]'}`}>
         {!isMobile ? (
           // Desktop Version
           <>
@@ -71,18 +71,18 @@ export function HowItWorks() {
           </>
         ) : (
           // Mobile Version
-          <div className="flex flex-col">
+          <div className="flex flex-col " >
             <div className="container mx-auto px-4">
               <div className="flex flex-col items-center text-center">
-                <h1 className="text-3xl font-bold text-[#0c1152] mb-6">
+                <h5 className="text-2xl font-bold text-[#0c1152] mb-6">
                   DISCOVER OUR STEP-BY-STEP PROCESS FOR PRECISE AND EFFECTIVE TREATMENT
-                </h1>
+                </h5>
                 <button className="bg-blue-900 text-white px-8 py-3 rounded-full font-semibold hover:bg-navy-800 transition-colors w-full max-w-xs">
                   SUBMIT YOUR CASE
                 </button>
               </div>
             </div>
-            <div className="w-full mt-8">
+            <div className=" mt-8 "style={{ marginLeft: '-193px', width:'142%' }}>
               <img
                 src={ImgMobile}
                 alt="Dental Tools"

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 import Img from '../Assets/1.png';
@@ -7,7 +7,7 @@ import Img2 from '../Assets/3.png';
 
 const images = [
   {
-    url: Img,  // Removed the curly braces - this was the main issue
+    url: Img,
     alt: "Dental implant guide markers"
   },
   {
@@ -22,6 +22,7 @@ const images = [
 
 function SurgicalGuide() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [autoScroll, setAutoScroll] = useState(true);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev === images.length - 1 ? 0 : prev + 1));
@@ -29,6 +30,24 @@ function SurgicalGuide() {
 
   const prevSlide = () => {
     setCurrentSlide((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  // Auto-scroll functionality
+  useEffect(() => {
+    let interval;
+    if (autoScroll) {
+      interval = setInterval(() => {
+        nextSlide();
+      }, 1000); // Change slide every 5 seconds
+    }
+    return () => clearInterval(interval);
+  }, [autoScroll, currentSlide]);
+
+  // Pause auto-scroll when user interacts
+  const handleInteraction = () => {
+    setAutoScroll(false);
+    // Resume auto-scroll after 10 seconds of inactivity
+    setTimeout(() => setAutoScroll(true), 10000);
   };
 
   return (
@@ -58,16 +77,16 @@ function SurgicalGuide() {
         </p>
 
         {/* Image Carousel */}
-        <div className="relative">
+        <div className="relative" onMouseEnter={() => setAutoScroll(false)} onMouseLeave={() => setAutoScroll(true)}>
           <div className="overflow-hidden relative h-[300px] md:h-[400px]">
             <div className="flex transition-transform duration-500 ease-in-out"
                  style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
               {images.map((image, index) => (
                 <div key={index} className="w-full flex-shrink-0">
                   <img
-                    src={image.url}  // Fixed the src attribute
+                    src={image.url}
                     alt={image.alt}
-                    className="w-full h-full object-contain rounded-lg"  // Changed to object-contain for better image display
+                    className="w-full h-full object-contain rounded-lg"
                   />
                 </div>
               ))}
@@ -76,13 +95,19 @@ function SurgicalGuide() {
 
           {/* Navigation Buttons */}
           <button
-            onClick={prevSlide}
+            onClick={() => {
+              prevSlide();
+              handleInteraction();
+            }}
             className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition-colors"
           >
             <ChevronLeft className="w-6 h-6 text-[#0c1152]" />
           </button>
           <button
-            onClick={nextSlide}
+            onClick={() => {
+              nextSlide();
+              handleInteraction();
+            }}
             className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 p-2 rounded-full shadow-lg hover:bg-white transition-colors"
           >
             <ChevronRight className="w-6 h-6 text-[#0c1152]" />
@@ -93,8 +118,11 @@ function SurgicalGuide() {
             {images.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentSlide(index)}
-                className={`w-2 h-2 rounded-full transition-colors ${
+                onClick={() => {
+                  setCurrentSlide(index);
+                  handleInteraction();
+                }}
+                className={`w-3 h-3 rounded-full transition-colors ${
                   currentSlide === index ? 'bg-[#0c1152]' : 'bg-gray-300'
                 }`}
               />

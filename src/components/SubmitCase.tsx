@@ -6,6 +6,7 @@ const SubmitCase = () => {
   const [showGuideTypes, setShowGuideTypes] = useState(false);
   const [droppedFile, setDroppedFile] = useState(null);
   const [dragActive, setDragActive] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const guideTypes = [
     'Edentulous Surgical Guide',
@@ -13,63 +14,81 @@ const SubmitCase = () => {
     'Pilot Guide Only'
   ];
 
-  const months = Array.from({ length: 12 }, (_, i) => {
-    return new Date(0, i).toLocaleString('default', { month: 'long' });
-  });
-
+  const months = Array.from({ length: 12 }, (_, i) => 
+    new Date(0, i).toLocaleString('default', { month: 'long' }));
+  
   const days = Array.from({ length: 31 }, (_, i) => i + 1);
-  const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() + i);
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 10 }, (_, i) => currentYear + i);
 
-  // Drag and Drop Handlers
-  const handleDragOver = (e) => {
+  const handleFileChange = (e) => {
+    const file = e.target.files?.[0] || e.dataTransfer?.files?.[0];
+    if (file) setDroppedFile(file);
+  };
+
+  const handleDrag = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!dragActive) {
+    if (e.type === 'dragenter' || e.type === 'dragover') {
       setDragActive(true);
+    } else if (e.type === 'dragleave' || e.type === 'drop') {
+      setDragActive(false);
     }
-  };
-
-  const handleDragEnter = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(true);
-  };
-
-  const handleDragLeave = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
   };
 
   const handleDrop = (e) => {
     e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      setDroppedFile(e.dataTransfer.files[0]);
-    }
+    handleFileChange(e);
   };
 
-  const handleFileChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setDroppedFile(e.target.files[0]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.target);
+    if (droppedFile) formData.append('attachment', droppedFile);
+    formData.append('surgicalGuideType', surgicalGuideType);
+
+    try {
+      const response = await fetch('http://server-mailer-theta.vercel.app/SubmitCase', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (response.ok) {
+        alert('Case submitted successfully!');
+        e.target.reset();
+        setDroppedFile(null);
+        setSurgicalGuideType('');
+      } else {
+        const errorData = await response.json();
+        alert(`Submission failed: ${errorData.error || 'Please try again.'}`);
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      alert('An error occurred during submission. Please check your connection.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className="min-h-screen bg-white py-12">
       <div className="max-w-3xl mx-auto px-6">
-        <div className="bg-white p-8 relative">
+        <form onSubmit={handleSubmit} className="bg-white p-8 relative">
           {/* Patient Information */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8">
+            {/* Patient Name and Dates */}
             <div>
               <div className="mb-8">
                 <label className="block text-sm text-gray-600 mb-1">
                   Patient Name:
                 </label>
                 <input
+                  name="patientName"
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
+                  required
                 />
               </div>
 
@@ -78,19 +97,19 @@ const SubmitCase = () => {
                   Requested Due Date:
                 </label>
                 <div className="grid grid-cols-3 gap-3">
-                  <select className="w-full border border-gray-300 rounded px-2 py-2 text-sm">
+                  <select name="dueMonth" className="w-full border border-gray-300 rounded px-2 py-2 text-sm" required>
                     <option value="">Month</option>
                     {months.map(month => (
                       <option key={month} value={month}>{month}</option>
                     ))}
                   </select>
-                  <select className="w-full border border-gray-300 rounded px-2 py-2 text-sm">
+                  <select name="dueDay" className="w-full border border-gray-300 rounded px-2 py-2 text-sm" required>
                     <option value="">Day</option>
                     {days.map(day => (
                       <option key={day} value={day}>{day}</option>
                     ))}
                   </select>
-                  <select className="w-full border border-gray-300 rounded px-2 py-2 text-sm">
+                  <select name="dueYear" className="w-full border border-gray-300 rounded px-2 py-2 text-sm" required>
                     <option value="">Year</option>
                     {years.map(year => (
                       <option key={year} value={year}>{year}</option>
@@ -100,25 +119,26 @@ const SubmitCase = () => {
               </div>
             </div>
 
+            {/* Date of Birth and Surgery Date */}
             <div>
               <div className="mb-8">
                 <label className="block text-sm text-gray-600 mb-1">
                   Date of Birth:
                 </label>
                 <div className="grid grid-cols-3 gap-3">
-                  <select className="w-full border border-gray-300 rounded px-2 py-2 text-sm">
+                  <select name="birthMonth" className="w-full border border-gray-300 rounded px-2 py-2 text-sm" required>
                     <option value="">Month</option>
                     {months.map(month => (
                       <option key={month} value={month}>{month}</option>
                     ))}
                   </select>
-                  <select className="w-full border border-gray-300 rounded px-2 py-2 text-sm">
+                  <select name="birthDay" className="w-full border border-gray-300 rounded px-2 py-2 text-sm" required>
                     <option value="">Day</option>
                     {days.map(day => (
                       <option key={day} value={day}>{day}</option>
                     ))}
                   </select>
-                  <select className="w-full border border-gray-300 rounded px-2 py-2 text-sm">
+                  <select name="birthYear" className="w-full border border-gray-300 rounded px-2 py-2 text-sm" required>
                     <option value="">Year</option>
                     {years.map(year => (
                       <option key={year} value={year}>{year}</option>
@@ -132,19 +152,19 @@ const SubmitCase = () => {
                   Surgery Date:
                 </label>
                 <div className="grid grid-cols-3 gap-3">
-                  <select className="w-full border border-gray-300 rounded px-2 py-2 text-sm">
+                  <select name="surgeryMonth" className="w-full border border-gray-300 rounded px-2 py-2 text-sm" required>
                     <option value="">Month</option>
                     {months.map(month => (
                       <option key={month} value={month}>{month}</option>
                     ))}
                   </select>
-                  <select className="w-full border border-gray-300 rounded px-2 py-2 text-sm">
+                  <select name="surgeryDay" className="w-full border border-gray-300 rounded px-2 py-2 text-sm" required>
                     <option value="">Day</option>
                     {days.map(day => (
                       <option key={day} value={day}>{day}</option>
                     ))}
                   </select>
-                  <select className="w-full border border-gray-300 rounded px-2 py-2 text-sm">
+                  <select name="surgeryYear" className="w-full border border-gray-300 rounded px-2 py-2 text-sm" required>
                     <option value="">Year</option>
                     {years.map(year => (
                       <option key={year} value={year}>{year}</option>
@@ -164,6 +184,7 @@ const SubmitCase = () => {
             <div className="space-y-3 max-w-xl mx-auto">
               <div className="relative">
                 <button
+                  type="button"
                   onClick={() => setShowGuideTypes(!showGuideTypes)}
                   className="w-full bg-white border border-gray-300 rounded px-3 py-2 text-left flex items-center justify-between"
                 >
@@ -177,6 +198,7 @@ const SubmitCase = () => {
                     {guideTypes.map((type) => (
                       <button
                         key={type}
+                        type="button"
                         className="w-full px-3 py-2 text-left hover:bg-gray-50"
                         onClick={() => {
                           setSurgicalGuideType(type);
@@ -190,15 +212,29 @@ const SubmitCase = () => {
                 )}
               </div>
 
-              <button className="w-full bg-white border border-gray-300 rounded px-3 py-2 text-left flex items-center justify-between">
-                <span className="text-gray-700">Number of Implants?</span>
-                <ChevronDown className="w-4 h-4 text-gray-500" />
-              </button>
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">
+                  Number of Implants:
+                </label>
+                <input
+                  name="numberOfImplants"
+                  type="number"
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  required
+                />
+              </div>
 
-              <button className="w-full bg-white border border-gray-300 rounded px-3 py-2 text-left flex items-center justify-between">
-                <span className="text-gray-700">How are models being sent?</span>
-                <ChevronDown className="w-4 h-4 text-gray-500" />
-              </button>
+              <div>
+                <label className="block text-sm text-gray-600 mb-1">
+                  How are models being sent?
+                </label>
+                <input
+                  name="modelsDeliveryMethod"
+                  type="text"
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  required
+                />
+              </div>
             </div>
           </div>
 
@@ -214,8 +250,10 @@ const SubmitCase = () => {
                   Implant System/Manufacturer:
                 </label>
                 <input
+                  name="implantSystem"
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
+                  required
                 />
               </div>
               
@@ -224,8 +262,10 @@ const SubmitCase = () => {
                   Type of Surgical Drill Kit:
                 </label>
                 <input
+                  name="drillKitType"
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
+                  required
                 />
               </div>
 
@@ -234,8 +274,10 @@ const SubmitCase = () => {
                   Implant Tooth Position(s):
                 </label>
                 <input
+                  name="implantPositions"
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
+                  required
                 />
               </div>
 
@@ -244,8 +286,10 @@ const SubmitCase = () => {
                   Desired Implant Width and Length(s):
                 </label>
                 <input
+                  name="implantDimensions"
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
+                  required
                 />
               </div>
 
@@ -253,10 +297,12 @@ const SubmitCase = () => {
                 <label className="block text-sm text-gray-600 mb-1">
                   Type of tissue flap anticipated?
                 </label>
-                <button className="w-full bg-white border border-gray-300 rounded px-3 py-2 text-left flex items-center justify-between">
-                  <span className="text-gray-700">Select type</span>
-                  <ChevronDown className="w-4 h-4 text-gray-500" />
-                </button>
+                <input
+                  name="tissueFlapType"
+                  type="text"
+                  className="w-full border border-gray-300 rounded px-3 py-2"
+                  required
+                />
               </div>
 
               <div>
@@ -264,6 +310,7 @@ const SubmitCase = () => {
                   Expedited Turnaround being requested?
                 </label>
                 <input
+                  name="expeditedRequest"
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
                 />
@@ -275,6 +322,7 @@ const SubmitCase = () => {
                 Additional Comments / Instructions:
               </label>
               <textarea
+                name="additionalComments"
                 className="w-full border border-gray-300 rounded px-3 py-2 h-32"
               />
             </div>
@@ -284,9 +332,9 @@ const SubmitCase = () => {
                 className={`bg-gray-100 rounded-lg p-8 text-center cursor-pointer ${
                   dragActive ? 'border-2 border-blue-500' : ''
                 }`}
-                onDragOver={handleDragOver}
-                onDragEnter={handleDragEnter}
-                onDragLeave={handleDragLeave}
+                onDragOver={handleDrag}
+                onDragEnter={handleDrag}
+                onDragLeave={handleDrag}
                 onDrop={handleDrop}
                 onClick={() => document.getElementById('fileInput').click()}
               >
@@ -309,11 +357,12 @@ const SubmitCase = () => {
                   onChange={handleFileChange}
                 />
               </div>
-              <div className="mt-4 text-center">
-                <p className="text-sm text-gray-600 mb-2">
-                  or share a link to CBCT/DICOM File
-                </p>
+              <div className="mt-4">
+                <label className="block text-sm text-gray-600 mb-1">
+                  or share a link to CBCT/DICOM File:
+                </label>
                 <input
+                  name="fileLink"
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
                 />
@@ -333,8 +382,10 @@ const SubmitCase = () => {
                   Full Name:
                 </label>
                 <input
+                  name="doctorName"
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
+                  required
                 />
               </div>
               
@@ -343,8 +394,10 @@ const SubmitCase = () => {
                   Phone #:
                 </label>
                 <input
+                  name="doctorPhone"
                   type="tel"
                   className="w-full border border-gray-300 rounded px-3 py-2"
+                  required
                 />
               </div>
 
@@ -353,8 +406,10 @@ const SubmitCase = () => {
                   Address:
                 </label>
                 <input
+                  name="doctorAddress"
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
+                  required
                 />
               </div>
 
@@ -363,8 +418,10 @@ const SubmitCase = () => {
                   License #:
                 </label>
                 <input
+                  name="doctorLicense"
                   type="text"
                   className="w-full border border-gray-300 rounded px-3 py-2"
+                  required
                 />
               </div>
             </div>
@@ -372,7 +429,7 @@ const SubmitCase = () => {
             {/* Terms and Conditions */}
             <div className="mt-8 text-sm text-gray-700">
               <p className="mb-4">
-                Submitting this data is subject to the terms and conditions of the Master Surgical Guide Agreement, which are incorporated herein by this reference. The above referenced Placing Dentist and Restoring Dentist (collectively "Dentist") represents, declares and agrees that the Dentist:
+                Submitting this data is subject to the terms and conditions of the Master Surgical Guide Agreement.
               </p>
               <ol className="list-decimal pl-5 space-y-2">
                 <li>
@@ -408,8 +465,10 @@ const SubmitCase = () => {
                     Date:
                   </label>
                   <input
-                    type="text"
+                    name="submissionDate"
+                    type="date"
                     className="w-full border border-gray-300 rounded px-3 py-2"
+                    required
                   />
                 </div>
                 
@@ -418,23 +477,26 @@ const SubmitCase = () => {
                     Type Your Name:
                   </label>
                   <input
+                    name="submitterName"
                     type="text"
                     className="w-full border border-gray-300 rounded px-3 py-2"
+                    required
                   />
                 </div>
               </div>
 
               <div className="mt-8">
-                <button className="w-full bg-[#0c1152] text-white py-3 rounded-lg font-semibold hover:bg-navy-800 transition-colors">
-                  SUBMIT
+                <button 
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-[#0c1152] text-white py-3 rounded-lg font-semibold hover:bg-blue-800 transition-colors disabled:opacity-50"
+                >
+                  {isSubmitting ? 'Submitting...' : 'SUBMIT'}
                 </button>
               </div>
             </div>
           </div>
-
-          {/* Implant Image */}
-         
-        </div>
+        </form>
       </div>
     </div>
   );

@@ -31,7 +31,23 @@ const testimonials = [
     name: "DR. LISA W., DMD",
     rating: 5,
     text: "The communication is excellent, and turnaround times are consistently faster than promised."
-  }
+  },
+
+  {
+    name: "DR.  T., DDS",
+    rating: 5,
+    text: "Guided Excellence has completely  my implant procedures. The guides are incredibly precise, and having Dr. Baghoomian review every case gives me total confidence in every surgery."
+  },
+  {
+    name: "DR.L., DMD",
+    rating: 5,
+    text: "The process is, and the results are outstanding. My patients have had fewer complications, and my surgeries are more efficient than ever."
+  },
+  {
+    name: "DR.K., PROSTHODONTIST",
+    rating: 5,
+    text: " Baghoomian actually understands the clinical side of implantology, unlike most labs. His expertise makes all the difference."
+  },
 ];
 
 const Testimonials = () => {
@@ -63,7 +79,7 @@ const Testimonials = () => {
       if (isMobile) {
         return prevIndex === testimonials.length - 1 ? 0 : prevIndex + 1;
       } else {
-        return prevIndex >= testimonials.length - 3 ? 0 : prevIndex + 1;
+        return prevIndex >= testimonials.length - 3 ? 0 : prevIndex + 3;
       }
     });
   };

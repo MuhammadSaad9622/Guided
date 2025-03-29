@@ -32,7 +32,7 @@ function SurgicalGuideComponent() {
   return (
     <div className="relative min-h-screen">
       {/* Hero Section */}
-      <div className={`relative bg-[#cdcec9] overflow-hidden ${isMobile ? 'pb-8' : 'min-h-[200px] sm:min-h-[500px] md:min-h-[700px]'}`}>
+      <div className={`relative bg-[#cdcec9] overflow-hidden ${isMobile ? 'pb-0 ' : 'min-h-[200px] sm:min-h-[500px] md:min-h-[700px]'}`}>
         
         {/* Desktop Version (unchanged) */}
         {!isMobile && (
@@ -69,7 +69,7 @@ function SurgicalGuideComponent() {
         {/* Mobile Version with image at bottom */}
         {isMobile && (
           <div className="flex flex-col">
-            <div className="p-6 text-center space-y-4">
+            <div className="p-16 text-center space-y-4">
               <h2 className="text-[#0c1152] text-lg font-medium tracking-wide">
                 WELCOME TO THE WORLD OF
               </h2>
@@ -83,11 +83,11 @@ function SurgicalGuideComponent() {
                 SUBMIT YOUR CASE
               </button>
             </div>
-            <div className="w-full mt-4">
+            <div className=" mt-4" style={{ marginLeft: '-273px', width:'182%' , marginTop:'-90px' }}>
               <img 
                 src={ImgMobile}
                 alt="Dental surgical guide"
-                className="w-full h-auto object-cover"
+                className="w-100 h-auto object-cover"
               />
             </div>
           </div>

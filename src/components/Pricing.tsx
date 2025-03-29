@@ -1,4 +1,5 @@
 import React from 'react';
+import{Link} from 'react-router-dom';
 
 const pricingData = [
   { units: 1, planning: 150, printing: 145, total: 295 },
@@ -54,9 +55,12 @@ function Pricing() {
 
         {/* CTA Button */}
         <div className="text-center mt-8">
+          <Link to ='/SubmitCase'>
           <button className="bg-blue-900 text-white px-8 py-3 rounded-md text-sm font-medium tracking-wide hover:bg-blue-800 transition-colors">
             GET STARTED
           </button>
+
+          </Link>
         </div>
       </div>
     </div>
